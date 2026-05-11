@@ -35,10 +35,12 @@ export default function Header() {
 
                 {/* Right Side */}
                 <div className="header-right">
-                    <button className="start-btn">
+                    <Link
+                        to="/shipping"
+                        className="start-btn"
+                    >
                         Get Started
-                    </button>
-
+                    </Link>
                     {/* Mobile Menu */}
                     <button className="menu-btn">
                         ☰

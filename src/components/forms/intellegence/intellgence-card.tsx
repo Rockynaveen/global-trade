@@ -1,4 +1,8 @@
+// IntelligenceCard.tsx
+
 import { useEffect } from "react";
+
+import { useFormContext } from "react-hook-form";
 
 import WeatherCard from "./weather-card";
 import ForexCard from "./forex-card";
@@ -6,66 +10,195 @@ import ForexCard from "./forex-card";
 import { useWeather } from "../../../hooks/use-weather";
 import { useForex } from "../../../hooks/use-forex";
 
-type Props = {
-  origin: any;
-  destination: any;
-  setTemperature: any;
-  setExchangeRate: any;
-};
+const IntelligenceCard = () => {
+  const {
+    watch,
+    setValue,
+  } = useFormContext();
 
-const IntelligenceCard = ({
-  origin,
-  destination,
-  setTemperature,
-  setExchangeRate,
-}: Props) => {
-  const lat = destination?.latlng?.[0] || 0;
-  const lon = destination?.latlng?.[1] || 0;
+  /* =========================================
+     GET COUNTRY DATA
+  ========================================= */
 
-  const fromCurrency = origin?.currencies
-    ? Object.keys(origin.currencies)[0]
-    : "";
+  const origin =
+    watch("originData");
 
-  const toCurrency = destination?.currencies
-    ? Object.keys(destination.currencies)[0]
-    : "";
+  const destination =
+    watch("destinationData");
 
-  const weatherQuery = useWeather(lat, lon, !!lat && !!lon);
-  const forexQuery = useForex(fromCurrency, toCurrency, !!fromCurrency && !!toCurrency);
+  /* =========================================
+     LAT & LNG
+  ========================================= */
+
+  const lat =
+    destination?.latlng?.[0] ||
+    0;
+
+  const lon =
+    destination?.latlng?.[1] ||
+    0;
+
+  /* =========================================
+     CURRENCIES
+  ========================================= */
+
+  const fromCurrency =
+    origin?.currencies
+      ? Object.keys(
+          origin.currencies
+        )[0]
+      : "";
+
+  const toCurrency =
+    destination?.currencies
+      ? Object.keys(
+          destination.currencies
+        )[0]
+      : "";
+
+  /* =========================================
+     API CALLS
+  ========================================= */
+
+  const weatherQuery =
+    useWeather(
+      lat,
+      lon,
+      !!lat && !!lon
+    );
+
+  const forexQuery =
+    useForex(
+      fromCurrency,
+      toCurrency,
+      !!fromCurrency &&
+        !!toCurrency
+    );
+
+  /* =========================================
+     STORE WEATHER
+  ========================================= */
 
   useEffect(() => {
-    if (weatherQuery.data?.current?.temperature_2m) {
-      setTemperature(weatherQuery.data.current.temperature_2m);
+    if (
+      weatherQuery.data
+        ?.current
+        ?.temperature_2m
+    ) {
+      setValue(
+        "temperature",
+        weatherQuery.data.current
+          .temperature_2m
+      );
     }
   }, [weatherQuery.data]);
 
+  /* =========================================
+     STORE FOREX
+  ========================================= */
+
   useEffect(() => {
     if (forexQuery.data) {
-      setExchangeRate(forexQuery.data);
+      setValue(
+        "exchangeRate",
+        forexQuery.data
+      );
+
+      setValue(
+        "toCurrency",
+        toCurrency
+      );
     }
   }, [forexQuery.data]);
 
   return (
-    <div className="dashboard-card">
-      <p className="step-text">STEP 3 OF 4</p>
+    <div className="dashboard-card intelligence-card">
 
-      <h2 className="step-title">Live Intelligence</h2>
+      {/* HEADER */}
+      <div className="intelligence-header">
+        <p className="step-text">
+          STEP 3 OF 4
+        </p>
 
-      <WeatherCard
-        loading={weatherQuery.isLoading}
-        success={weatherQuery.isSuccess}
-        temperature={weatherQuery.data?.current?.temperature_2m}
-      />
+        <h2 className="step-title">
+          Live Intelligence
+        </h2>
 
-      <ForexCard
-        loading={forexQuery.isLoading}
-        success={forexQuery.isSuccess}
-        rate={forexQuery.data}
-      />
+        <p className="intelligence-subtitle">
+          Real-time weather and forex
+          analytics for your selected
+          shipping route.
+        </p>
+      </div>
 
-      <button className="primary-btn">
-        Intelligence Ready
-      </button>
+      {/* TOP STATS */}
+      <div className="intelligence-top">
+
+        <div className="mini-stat-card">
+          <span>
+            FROM
+          </span>
+
+          <h4>
+            {origin?.name
+              ?.common || "-"}
+          </h4>
+        </div>
+
+        <div className="mini-arrow">
+          →
+        </div>
+
+        <div className="mini-stat-card">
+          <span>
+            TO
+          </span>
+
+          <h4>
+            {destination?.name
+              ?.common || "-"}
+          </h4>
+        </div>
+
+      </div>
+
+      {/* 2 COLUMN GRID */}
+      <div className="intelligence-grid">
+
+        {/* WEATHER */}
+        <div className="intel-box">
+          <WeatherCard
+            loading={
+              weatherQuery.isLoading
+            }
+            success={
+              weatherQuery.isSuccess
+            }
+            temperature={
+              weatherQuery.data
+                ?.current
+                ?.temperature_2m
+            }
+          />
+        </div>
+
+        {/* FOREX */}
+        <div className="intel-box">
+          <ForexCard
+            loading={
+              forexQuery.isLoading
+            }
+            success={
+              forexQuery.isSuccess
+            }
+            rate={
+              forexQuery.data
+            }
+          />
+        </div>
+
+      </div>
+
     </div>
   );
 };

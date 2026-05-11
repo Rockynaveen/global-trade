@@ -737,6 +737,12 @@
     background: rgba(239, 68, 68, 0.2);
 }
 
+.weather-temp {
+    font-size: 45px;
+    color: navajowhite;
+}
+
+
 .currency {
     background: rgba(34, 197, 94, 0.2);
 }
@@ -825,12 +831,22 @@
     padding: 70px 0;
 }
 
+.form-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 24px;
+
+    width: 100%;
+}
+
 /* =========================================
    CARD
 ========================================= */
 
 .dashboard-card {
-    background: rgba(8, 20, 38, 0.92);
+    background: linear-gradient(145deg, rgb(47 111 207), rgb(6 6 6)) !important;
 
     border: 1px solid rgba(0, 255, 255, 0.08);
 
@@ -849,7 +865,8 @@
         0 0 40px rgba(0, 200, 255, 0.04);
 
     transition: 0.3s ease;
-    margin-top: 10px;;
+    margin-top: 10px;
+    ;
 }
 
 .dashboard-card:hover {
@@ -909,7 +926,7 @@
 
     margin-bottom: 10px;
 
-    color: #9ca3af;
+    color:white;
 
     font-size: 14px;
 
@@ -1145,222 +1162,212 @@ select.input-field {
 /* =================route section end==================== */
 
 /* ==================cargo form section start ========================*/
-/* =========================================
-   src/styles/cargo-form.css
-========================================= */
+/* /* =========================
+   FORM GRID
+========================= */
 
-.input-wrapper {
-    position: relative;
+.form-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 24px;
+
+    width: 100%;
 }
 
-.input-icon {
-    position: absolute;
-
-    left: 18px;
-
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    color: #00c8ff;
-
-    z-index: 2;
-}
-
-.input-wrapper .input-field {
-    padding-left: 50px;
-}
-
-/* =========================================
+/* =========================
    HAZMAT BOX
-========================================= */
+========================= */
 
 .hazmat-box {
-    margin-top: 24px;
+    margin-top: 30px;
 
-    padding: 20px;
+    padding: 24px;
 
-    border-radius: 20px;
+    border-radius: 22px;
 
-    background: rgba(255, 140, 0, 0.05);
+    background:
+        linear-gradient(135deg,
+            rgba(0, 200, 255, 0.06),
+            rgba(0, 255, 255, 0.02));
 
-    border: 1px solid rgba(255, 140, 0, 0.15);
+    border: 1px solid rgba(0, 255, 255, 0.08);
 
     display: flex;
 
     align-items: center;
 
     justify-content: space-between;
+
+    gap: 20px;
 }
 
-.hazmat-left {
-    display: flex;
+.hazmat-box h4 {
+    color: white;
+
+    font-size: 18px;
+
+    margin-bottom: 6px;
+}
+
+.hazmat-box p {
+    color: #94a3b8;
+
+    font-size: 13px;
+}
+
+/* =========================
+   TOGGLE SWITCH
+========================= */
+
+.switch {
+    position: relative;
+
+    display: inline-block;
+
+    width: 60px;
+
+    height: 32px;
+}
+
+.switch input {
+    opacity: 0;
+
+    width: 0;
+
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+
+    cursor: pointer;
+
+    inset: 0;
+
+    background: #1e293b;
+
+    border-radius: 50px;
+
+    transition: 0.3s;
+}
+
+.slider::before {
+    content: "";
+
+    position: absolute;
+
+    width: 24px;
+
+    height: 24px;
+
+    left: 4px;
+
+    bottom: 4px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: 0.3s;
+}
+
+.switch input:checked+.slider {
+    background: #00c8ff;
+}
+
+.switch input:checked+.slider::before {
+    transform: translateX(28px);
+}
+
+/* =========================
+   LICENSE FIELD
+========================= */
+
+.license-field {
+    margin-top: 24px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hazmat-box {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+}
+
+/* ===intellegnce card start=====================*/
+/* =========================================
+   LIVE INTELLIGENCE
+========================================= */
+
+.intelligence-card {
+    padding: 40px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.intelligence-header {
+    margin-bottom: 32px;
+}
+
+.intelligence-subtitle {
+    color: #94a3b8;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    margin-top: 10px;
+}
+
+/* =========================================
+   ROUTE TOP BAR
+========================================= */
+
+.intelligence-top {
+    display: grid;
+
+    grid-template-columns: 1fr 90px 1fr;
+
+    gap: 20px;
 
     align-items: center;
 
-    gap: 16px;
+    margin-bottom: 32px;
 }
 
-.hazmat-icon {
-    color: #ff9800;
-}
+.mini-stat-card {
+    height: 110px;
 
-.hazmat-left h4 {
-    font-size: 15px;
+    border-radius: 24px;
 
-    margin-bottom: 4px;
-}
-
-.hazmat-left p {
-    font-size: 13px;
-
-    color: #94a3b8;
-}
-
-/* =========================================
-   LICENSE BOX
-========================================= */
-
-.license-box {
-    margin-top: 22px;
-
-    background: rgba(34, 197, 94, 0.05);
-
-    border: 1px solid rgba(34, 197, 94, 0.15);
-
-    border-radius: 20px;
-
-    padding: 20px;
-}
-
-.license-info {
-    margin-top: 12px;
-
-    color: #4ade80;
-
-    font-size: 13px;
-}
-
-/* =========================================
-   INFO BOX
-========================================= */
-
-.cargo-info {
-    margin-top: 26px;
-
-    border-radius: 20px;
-
-    padding: 20px;
-
-    background: rgba(0, 140, 255, 0.05);
-
-    border: 1px solid rgba(0, 140, 255, 0.15);
-}
-
-.cargo-info p {
-    color: #93c5fd;
-
-    line-height: 1.7;
-
-    font-size: 14px;
-}
-
-/* ==================cargo form section end ========================*/
-
-
-/* ======================intellegnce card start===================== */
-
-/* ===================/* =========================================
-   src/styles/intelligence.css
-   GLOBAL TRADE INTELLIGENCE DESIGN
-========================================= */
-
-/* =========================================
-   MAIN CARD
-========================================= */
-
-.dashboard-card {
     background:
         linear-gradient(145deg,
-            rgba(8, 20, 38, 0.96),
-            rgba(10, 28, 50, 0.92));
+            rgba(15, 23, 42, 0.95),
+            rgba(8, 20, 38, 0.95));
 
-    border: 1px solid rgba(0, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 
-    border-radius: 30px;
+    display: flex;
 
-    padding: 30px;
+    flex-direction: column;
 
-    backdrop-filter: blur(20px);
+    justify-content: center;
 
-    position: relative;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 10px 50px rgba(0, 0, 0, 0.45),
-        0 0 30px rgba(0, 200, 255, 0.03);
-
-    transition: 0.35s ease;
-}
-
-.dashboard-card:hover {
-    transform: translateY(-4px);
-
-    border-color: rgba(0, 200, 255, 0.18);
-}
-
-/* =========================================
-   STEP TEXT
-========================================= */
-
-.step-text {
-    color: #00c8ff;
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-    letter-spacing: 3px;
-
-    text-transform: uppercase;
-
-    margin-bottom: 14px;
-}
-
-/* =========================================
-   TITLE
-========================================= */
-
-.step-title {
-    font-size: 34px;
-
-    font-weight: 800;
-
-    color: white;
-
-    margin-bottom: 34px;
-
-    line-height: 1.2;
-}
-
-/* =========================================
-   INTELLIGENCE CARD
-========================================= */
-
-.intel-card {
-    background:
-        linear-gradient(145deg,
-            rgba(0, 255, 255, 0.03),
-            rgba(0, 200, 255, 0.02));
-
-    border: 1px solid rgba(0, 255, 255, 0.08);
-
-    border-radius: 26px;
-
-    padding: 24px;
-
-    margin-bottom: 24px;
+    align-items: center;
 
     position: relative;
 
@@ -1369,13 +1376,7 @@ select.input-field {
     transition: 0.3s ease;
 }
 
-.intel-card:hover {
-    border-color: rgba(0, 200, 255, 0.2);
-
-    transform: translateY(-2px);
-}
-
-.intel-card::before {
+.mini-stat-card::before {
     content: "";
 
     position: absolute;
@@ -1384,54 +1385,63 @@ select.input-field {
 
     height: 180px;
 
-    background: rgba(0, 200, 255, 0.03);
+    background: rgba(0, 200, 255, 0.06);
 
     border-radius: 50%;
 
-    top: -80px;
+    top: -90px;
 
-    right: -70px;
+    right: -90px;
 }
 
-/* =========================================
-   TOP
-========================================= */
+.mini-stat-card:hover {
+    transform: translateY(-3px);
 
-.intel-top {
-    display: flex;
+    border-color: rgba(0, 200, 255, 0.18);
+}
 
-    align-items: center;
+.mini-stat-card span {
+    color: #00c8ff;
 
-    justify-content: space-between;
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
 
     position: relative;
 
     z-index: 2;
 }
 
-.intel-left {
-    display: flex;
+.mini-stat-card h4 {
+    color: white;
 
-    align-items: center;
+    font-size: 24px;
 
-    gap: 16px;
+    font-weight: 700;
+
+    position: relative;
+
+    z-index: 2;
+    padding:0px 20px;
 }
 
 /* =========================================
-   ICON
+   ARROW CENTER
 ========================================= */
 
-.intel-icon {
-    width: 58px;
+.mini-arrow {
+    width: 90px;
 
-    height: 58px;
+    height: 90px;
 
-    border-radius: 18px;
+    border-radius: 50%;
 
     background:
-        linear-gradient(145deg,
-            rgba(0, 200, 255, 0.12),
-            rgba(0, 255, 255, 0.05));
+        linear-gradient(135deg,
+            #00c8ff,
+            #00f2fe);
 
     display: flex;
 
@@ -1439,226 +1449,129 @@ select.input-field {
 
     justify-content: center;
 
-    color: #00c8ff;
+    color: #02131f;
+
+    font-size: 36px;
+
+    font-weight: bold;
 
     box-shadow:
-        0 0 25px rgba(0, 200, 255, 0.08);
+        0 15px 35px rgba(0, 200, 255, 0.3);
 }
 
 /* =========================================
-   TEXT
+   WEATHER + FOREX GRID
 ========================================= */
 
-.intel-left h4 {
-    color: white;
+.intelligence-grid {
+    display: grid;
 
-    font-size: 17px;
+    grid-template-columns: repeat(2, 1fr);
 
-    font-weight: 700;
-
-    margin-bottom: 6px;
-}
-
-.intel-left p {
-    color: #94a3b8;
-
-    font-size: 13px;
+    gap: 24px;
 }
 
 /* =========================================
-   WEATHER CONTENT
+   CARD BOX
 ========================================= */
 
-.intel-content {
-    margin-top: 26px;
+.intel-box {
+    min-height: 280px;
 
-    display: flex;
+    border-radius: 28px;
 
-    align-items: center;
+    padding: 15px;
 
-    gap: 18px;
+    background:
+        linear-gradient(145deg,
+            rgba(15, 23, 42, 0.96),
+            rgba(8, 20, 38, 0.98));
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
 
     position: relative;
 
-    z-index: 2;
+    overflow: hidden;
+
+    transition: 0.35s ease;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.35);
 }
 
-.weather-temp {
-    font-size: 68px;
-
-    font-weight: 900;
-
-    color: #00c8ff;
-
-    line-height: 1;
-}
-
-.weather-info h5 {
-    font-size: 18px;
-
-    margin-bottom: 6px;
-
+.intel-top {
     color: white;
 }
 
-.weather-info p {
-    font-size: 14px;
+.intel-box::before {
+    content: "";
 
+    position: absolute;
+
+    width: 220px;
+
+    height: 220px;
+
+    background: rgba(0, 200, 255, 0.04);
+
+    border-radius: 50%;
+
+    top: -120px;
+
+    right: -120px;
+}
+
+.intel-box:hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(0, 200, 255, 0.22);
+
+    box-shadow:
+        0 20px 45px rgba(0, 200, 255, 0.08);
+}
+
+/* =========================================
+   INSIDE CARD CONTENT
+========================================= */
+
+.intel-box h3 {
+    color: navajowhite;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    margin-top: 33px;
+}
+
+.intel-box p {
     color: #94a3b8;
+
+    font-size: 14px;
 
     line-height: 1.6;
 }
 
 /* =========================================
-   FOREX
+   VALUE TEXT
 ========================================= */
 
-.currency-box {
-    margin-top: 26px;
+.intel-value {
+    margin-top: 20px;
 
-    padding: 22px;
-
-    border-radius: 20px;
-
-    background: rgba(0, 255, 255, 0.03);
-
-    border: 1px solid rgba(0, 255, 255, 0.06);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    position: relative;
-
-    z-index: 2;
-}
-
-.currency-box h3 {
-    font-size: 28px;
-
-    color: white;
-
-    margin-bottom: 6px;
+    font-size: 46px;
 
     font-weight: 800;
+
+    color: #00e0ff;
+
+    line-height: 1;
 }
 
-.currency-box p {
+.intel-unit {
     color: #94a3b8;
-
-    font-size: 13px;
-}
-
-/* =========================================
-   STATUS
-========================================= */
-
-.system-status {
-    margin-top: 28px;
-
-    padding: 18px;
-
-    border-radius: 18px;
-
-    background: rgba(34, 197, 94, 0.08);
-
-    border: 1px solid rgba(34, 197, 94, 0.15);
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-}
-
-.status-dot {
-    width: 11px;
-
-    height: 11px;
-
-    border-radius: 50%;
-
-    background: #22c55e;
-
-    box-shadow:
-        0 0 15px #22c55e;
-}
-
-.system-status p {
-    color: #bbf7d0;
-
-    font-size: 14px;
-}
-
-/* =========================================
-   BUTTON
-========================================= */
-
-.primary-btn {
-    width: 100%;
-
-    height: 58px;
-
-    border: none;
-
-    border-radius: 18px;
-
-    margin-top: 30px;
-
-    background:
-        linear-gradient(135deg,
-            #00c8ff,
-            #00e0ff);
-
-    color: #03131f;
 
     font-size: 16px;
 
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition: 0.35s ease;
-
-    box-shadow:
-        0 10px 30px rgba(0, 200, 255, 0.25);
-}
-
-.primary-btn:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 18px 40px rgba(0, 200, 255, 0.35);
-}
-
-/* =========================================
-   ICON STATES
-========================================= */
-
-.spin-icon {
-    animation: spin 1s linear infinite;
-
-    color: #00c8ff;
-}
-
-.success-icon {
-    color: #22c55e;
-}
-
-/* =========================================
-   ANIMATION
-========================================= */
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
+    margin-left: 6px;
 }
 
 /* =========================================
@@ -1666,28 +1579,37 @@ select.input-field {
 ========================================= */
 
 @media (max-width: 768px) {
-    .dashboard-card {
-        padding: 24px;
+
+    .intelligence-top {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
     }
 
-    .step-title {
-        font-size: 28px;
+    .mini-arrow {
+        margin: auto;
+
+        transform: rotate(90deg);
     }
 
-    .weather-temp {
-        font-size: 52px;
+    .intelligence-grid {
+        grid-template-columns: 1fr;
     }
 
-    .currency-box h3 {
-        font-size: 22px;
+    .intel-box {
+        min-height: auto;
     }
 }
 
-/* ===intellegnce card end=====================*/
+
+/* ===========intellegence card end====================== */
 
 /* =================cost summary start =============== */
 .cost-summary-card {
-    margin-top: 40px;
+    /* margin-top: 40px; */
+}
+.start-btn {
+    text-decoration: none;
 }
 
 .summary-row {

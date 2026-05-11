@@ -1,33 +1,12 @@
+// RouteForm.tsx
+
 import { useEffect } from "react";
 
-import { useForm } from "react-hook-form";
-
-import { z } from "zod";
-
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormContext } from "react-hook-form";
 
 import { useCountries } from "../../hooks/use-countires";
 
-const routeSchema = z.object({
-  origin: z.string(),
-
-  destination: z.string(),
-});
-
-type RouteFormData = z.infer<
-  typeof routeSchema
->;
-
-type Props = {
-  setOrigin: any;
-
-  setDestination: any;
-};
-
-const RouteForm = ({
-  setOrigin,
-  setDestination,
-}: Props) => {
+const RouteForm = () => {
   const {
     data: countries = [],
     isLoading,
@@ -36,16 +15,15 @@ const RouteForm = ({
   const {
     register,
     watch,
-  } = useForm<RouteFormData>({
-    resolver:
-      zodResolver(routeSchema),
-  });
+    setValue,
+  } = useFormContext();
 
   /* =========================================
      WATCH VALUES
   ========================================= */
 
-  const origin = watch("origin");
+  const origin =
+    watch("origin");
 
   const destination =
     watch("destination");
@@ -69,12 +47,15 @@ const RouteForm = ({
     );
 
   /* =========================================
-     UPDATE PARENT STATE
+     STORE FULL COUNTRY DATA
   ========================================= */
 
   useEffect(() => {
     if (selectedOrigin) {
-      setOrigin(selectedOrigin);
+      setValue(
+        "originData",
+        selectedOrigin
+      );
     }
   }, [selectedOrigin]);
 
@@ -82,7 +63,8 @@ const RouteForm = ({
     if (
       selectedDestination
     ) {
-      setDestination(
+      setValue(
+        "destinationData",
         selectedDestination
       );
     }
@@ -99,79 +81,97 @@ const RouteForm = ({
       </h2>
 
       {isLoading ? (
-        <p>Loading Countries...</p>
+        <p>
+          Loading Countries...
+        </p>
       ) : (
         <>
-          {/* ORIGIN */}
-          <div className="form-group">
-            <label className="label">
-              Origin Country
-            </label>
+          {/* 2 COLUMN GRID */}
+          <div className="form-grid">
 
-            <select
-              className="input-field"
-              {...register("origin")}
-            >
-              <option value="">
-                Select Country
-              </option>
+            {/* ORIGIN */}
+            <div className="form-group">
+              <label className="label">
+                Origin Country
+              </label>
 
-              {countries.map(
-                (country: any) => (
-                  <option
-                    key={country.cca2}
-                    value={
-                      country.name.common
-                    }
-                  >
-                    {
-                      country.name.common
-                    }
-                  </option>
-                )
-              )}
-            </select>
-          </div>
+              <select
+                className="input-field"
+                {...register(
+                  "origin"
+                )}
+              >
+                <option value="">
+                  Select Country
+                </option>
 
-          {/* DESTINATION */}
-          <div className="form-group">
-            <label className="label">
-              Destination Country
-            </label>
+                {countries.map(
+                  (country: any) => (
+                    <option
+                      key={
+                        country.cca2
+                      }
+                      value={
+                        country.name
+                          .common
+                      }
+                    >
+                      {
+                        country.name
+                          .common
+                      }
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
 
-            <select
-              className="input-field"
-              {...register(
-                "destination"
-              )}
-            >
-              <option value="">
-                Select Country
-              </option>
+            {/* DESTINATION */}
+            <div className="form-group">
+              <label className="label">
+                Destination Country
+              </label>
 
-              {countries.map(
-                (country: any) => (
-                  <option
-                    key={country.cca2}
-                    value={
-                      country.name.common
-                    }
-                  >
-                    {
-                      country.name.common
-                    }
-                  </option>
-                )
-              )}
-            </select>
+              <select
+                className="input-field"
+                {...register(
+                  "destination"
+                )}
+              >
+                <option value="">
+                  Select Country
+                </option>
+
+                {countries.map(
+                  (country: any) => (
+                    <option
+                      key={
+                        country.cca2
+                      }
+                      value={
+                        country.name
+                          .common
+                      }
+                    >
+                      {
+                        country.name
+                          .common
+                      }
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+
           </div>
 
           {/* ROUTE PREVIEW */}
           <div className="route-preview">
             <div className="route-country">
               <h4>
-                {selectedOrigin?.name
-                  ?.common || "-"}
+                {selectedOrigin
+                  ?.name?.common ||
+                  "-"}
               </h4>
             </div>
 
@@ -182,8 +182,8 @@ const RouteForm = ({
             <div className="route-country">
               <h4>
                 {selectedDestination
-                  ?.name?.common ||
-                  "-"}
+                  ?.name
+                  ?.common || "-"}
               </h4>
             </div>
           </div>
